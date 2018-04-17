@@ -17,7 +17,7 @@ const server = express();
 const ws = createServer(server);
 
 ws.listen(PORT, () => {
-  console.log(`GraphQL Server is now running on http://localhost:${PORT}`);
+  console.log(`GraphQL Server is now running on http://ec2-34-240-23-55.eu-west-1.compute.amazonaws.com:${PORT}`);
   // Set up the WebSocket for handling GraphQL subscriptions
   new SubscriptionServer({
     execute,
@@ -29,7 +29,7 @@ ws.listen(PORT, () => {
   });
 });
 
-server.use('*', cors({ origin: 'http://localhost:3000' }));
+server.use('*', cors({ origin: 'http://ec2-34-240-23-55.eu-west-1.compute.amazonaws.com:3000' }));
 
 server.use('/graphql', bodyParser.json(), graphqlExpress({
   schema
@@ -37,7 +37,7 @@ server.use('/graphql', bodyParser.json(), graphqlExpress({
 
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
-  subscriptionsEndpoint: `ws://localhost:4000/subscriptions`
+  subscriptionsEndpoint: `ws://ec2-34-240-23-55.eu-west-1.compute.amazonaws.com:4000/subscriptions`
 }));
 
 // server.listen(PORT, () => 
